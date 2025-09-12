@@ -4,6 +4,31 @@ source /assets/functions/00-container
 prepare_service
 PROCESS_NAME="uptimekuma"
 
+cat <<EOF
+
+*********************************************************************************
+*                                                                               *
+*                    END OF LIFE NOTICE AUGUST 14, 2025                         *
+*                               tiredofit/uptimekuma                            *
+*                                                                               *
+* This image is no longer maintained as of and will not receive updates.        *
+*                                                                               *
+* A successor image is available at:                                            *
+*                                                                               *
+* Repository | Documentation:                                                   *
+*   - https://github.com/nfrastack/container-uptimekuma                         *
+*                                                                               *
+* Image Registries:                                                             *
+*   - https://hub.docker.com/r/nfrastack/uptimekuma                             *
+*   - https://github.com/nfrastack/container-base/pkgs/container/container-base *
+*                                                                               *
+* Please visit https://nfrastack.com for more information.                      *
+*                                                                               *
+*********************************************************************************
+
+EOF
+
+sleep 15
 bootstrap_filesystems
 configure_container
 custom_files "${CONTAINER_CUSTOM_PATH}" /
