@@ -1,0 +1,15 @@
+#!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2025 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
+
+source /container/base/functions/container/init
+prepare_service 20-uptimekuma
+PROCESS_NAME="uptimekuma"
+
+uptimekuma_bootstrap_filesystems
+uptimekuma_configure_container
+custom_files "${CONTAINER_CUSTOM_PATH}" /
+custom_scripts "${CONTAINER_CUSTOM_SCRIPTS_PATH}"
+
+liftoff

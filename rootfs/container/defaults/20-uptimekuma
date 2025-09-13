@@ -1,4 +1,6 @@
-#!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2025 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
 
 DATA_PATH=${DATA_PATH:-"/app/data/"}
 LOG_FILE=${LOG_FILE:-"uptimekuma.log"}

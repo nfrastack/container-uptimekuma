@@ -1,3 +1,9 @@
+## 1.2.0pre 2025-09-13 <code at nfrastack dot com>
+
+   ### Changed
+      - Switch base image to nfrastack/nginx
+      - Alpine 3.22
+
 ## 1.1.99 2025-09-12 <dave at tiredofit dot ca>
 
 Deprecate image and add EOL Notice

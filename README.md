@@ -1,86 +1,75 @@
-# github.com/tiredofit/uptimekuma
-
-[![GitHub release](https://img.shields.io/github/v/tag/tiredofit/docker-uptimekuma?style=flat-square)](https://github.com/tiredofit/docker-uptimekuma/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/tiredofit/docker-uptimekuma/build?style=flat-square)](https://github.com/tiredofit/docker-uptimekuma/actions?query=workflow%3Abuild)
-[![Docker Stars](https://img.shields.io/docker/stars/tiredofit/uptimekuma.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/tiredofit/uptimekuma/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/tiredofit/uptimekuma.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/tiredofit/uptimekuma/)
-[![Become a sponsor](https://img.shields.io/badge/sponsor-tiredofit-181717.svg?logo=github&style=flat-square)](https://github.com/sponsors/tiredofit)
-[![Paypal Donate](https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal&style=flat-square)](https://www.paypal.me/tiredofit)
+# nfrastack/container-uptimekuma
 
 ## About
 
-This will build a Docker Image for [Uptime Kuma](https://uptime.kuma.pet/), A service availability application.
+This repository will build a container for [Uptime Kuma](https://uptime.kuma.pet/), A service availability application.
 
 ## Maintainer
 
-- [Dave Conroy](https://github.com/tiredofit/)
+* [Nfrastack](https://www.nfrastack.com)
 
 ## Table of Contents
 
-- [About](#about)
-- [Maintainer](#maintainer)
-- [Table of Contents](#table-of-contents)
-- [Prerequisites and Assumptions](#prerequisites-and-assumptions)
-- [Installation](#installation)
-  - [Build from Source](#build-from-source)
-  - [Prebuilt Images](#prebuilt-images)
-    - [Multi Architecture](#multi-architecture)
-- [Configuration](#configuration)
-  - [Quick Start](#quick-start)
-  - [Persistent Storage](#persistent-storage)
-  - [Environment Variables](#environment-variables)
-    - [Base Images used](#base-images-used)
-    - [Container Options](#container-options)
-  - [Networking](#networking)
-- [Maintenance](#maintenance)
-  - [Shell Access](#shell-access)
-- [Support](#support)
-  - [Usage](#usage)
-  - [Bugfixes](#bugfixes)
-  - [Feature Requests](#feature-requests)
-  - [Updates](#updates)
-- [License](#license)
-- [References](#references)
 
-## Prerequisites and Assumptions
-*  Assumes you are using some sort of SSL terminating reverse proxy such as:
-   *  [Traefik](https://github.com/tiredofit/docker-traefik)
-   *  [Nginx](https://github.com/jc21/nginx-proxy-manager)
-   *  [Caddy](https://github.com/caddyserver/caddy)
+* [About](#about)
+* [Maintainer](#maintainer)
+* [Table of Contents](#table-of-contents)
+* [Installation](#installation)
+  * [Prebuilt Images](#prebuilt-images)
+  * [Quick Start](#quick-start)
+  * [Persistent Storage](#persistent-storage)
+* [Configuration](#configuration)
+  * [Environment Variables](#environment-variables)
+    * [Base Images used](#base-images-used)
+    * [Core Configuration](#core-configuration)
+  * [Users and Groups](#users-and-groups)
+  * [Networking](#networking)
+* [Maintenance](#maintenance)
+  * [Shell Access](#shell-access)
+* [Support & Maintenance](#support--maintenance)
+* [License](#license)
 
 ## Installation
-### Build from Source
-Clone this repository and build the image with `docker build -t (imagename) .`
 
 ### Prebuilt Images
-Builds of the image are available on [Docker Hub](https://hub.docker.com/r/tiredofit/uptimekuma)
 
-```bash
-docker pull docker.io/tiredofdit/uptimekuma:(imagetag)
+Feature limited builds of the image are available on the [Github Container Registry](https://github.com/nfrastack/container-uptimekuma/pkgs/container/container-uptimekuma) and [Docker Hub](https://hub.docker.com/r/nfrastack/uptimekuma).
+
+To unlock advanced features, one must provide a code to be able to change specific environment variables from defaults. Support the development to gain access to a code.
+
+To get access to the image use your container orchestrator to pull from the following locations:
+
 ```
-Builds of the image are also available on the [Github Container Registry](https://github.com/tiredofit/docker-uptimekuma/pkgs/container/docker-uptimekuma)
-
-```
-docker pull ghcr.io/tiredofit/docker-uptimekuma:(imagetag)
+ghcr.io/nfrastack/container-uptimekuma:(image_tag)
+docker.io/nfrastack/uptimekuma:(image_tag)
 ```
 
-The following image tags are available along with their tagged release based on what's written in the [Changelog](CHANGELOG.md):
+Image tag syntax is:
 
-| Container OS | Tag       |
-| ------------ | --------- |
-| Alpine       | `:latest` |
+`<image>:<optional tag>`
 
-#### Multi Architecture
-Images are built primarily for `amd64` architecture, and may also include builds for `arm/v7`, `arm64` and others. These variants are all unsupported. Consider [sponsoring](https://github.com/sponsors/tiredofit) my work so that I can work with various hardware. To see if this image supports multiple architecures, type `docker manifest (image):(tag)`
+Example:
 
-## Configuration
+`ghcr.io/nfrastack/container-uptimekuma:latest` or
+
+`ghcr.io/nfrastack/container-uptimekuma:1.0` or
+
+* `latest` will be the most recent commit
+* An otpional `tag` may exist that matches the [CHANGELOG](CHANGELOG.md) - These are the safest
+* If there are multiple distribution variations it may include a version - see the registry for availability
+
+Have a look at the container registries and see what tags are available.
+
+#### Multi-Architecture Support
+
+Images are built for `amd64` by default, with optional support for `arm64` and other architectures.
 
 ### Quick Start
 
-* The quickest way to get started is using [docker-compose](https://docs.docker.com/compose/). See the examples folder for a working [docker-compose.yml](examples/docker-compose.yml) that can be modified for development or production use.
+* The quickest way to get started is using [docker-compose](https://docs.docker.com/compose/). See the examples folder for a working [compose.yml](examples/compose.yml) that can be modified for your use.
 
-* Set various [environment variables](#environment-variables) to understand the capabilities of this image.
-* Map [persistent storage](#data-volumes) for access to configuration and data files for backup.
+* Map persistent storage for access to configuration and data files for backup.
+* Set various environment variables to understand the capabilities of this image.
 
 ### Persistent Storage
 
@@ -91,22 +80,25 @@ The following directories are used for configuration and can be mapped for persi
 | `/data`   | SQLite Database |
 | `/logs`   | Logfiles        |
 
-* * *
+## Configuration
+
 ### Environment Variables
 
 #### Base Images used
 
-This image relies on an [Alpine Linux](https://hub.docker.com/r/tiredofit/alpine) base image that relies on an [init system](https://github.com/just-containers/s6-overlay) for added capabilities. Outgoing SMTP capabilities are handlded via `msmtp`. Individual container performance monitoring is performed by [zabbix-agent](https://zabbix.org). Additional tools include: `bash`,`curl`,`less`,`logrotate`,`nano`,`vim`.
-
+This image relies on a customized base image in order to work.
 Be sure to view the following repositories to understand all the customizable options:
 
+| Image                                                   | Description      |
+| ------------------------------------------------------- | ---------------- |
+| [OS Base](https://github.com/nfrastack/container-base/) | Base Image       |
+| [Nginx](https://github.com/nfrastack/container-nginx/)  | Web Server Image |
 
-| Image                                                  | Description                            |
-| ------------------------------------------------------ | -------------------------------------- |
-| [OS Base](https://github.com/tiredofit/docker-alpine/) | Customized Image based on Alpine Linux |
-| [Nginx](https://github.com/tiredofit/docker-nginx/)    | Nginx webserver                        |
+Below is the complete list of available options that can be used to customize your installation.
 
-#### Container Options
+* Variables showing an 'x' under the `Advanced` column can only be set if the containers advanced functionality is enabled.
+
+#### Core Configuration
 
 | Variable      | Description                       | Default          |
 | ------------- | --------------------------------- | ---------------- |
@@ -116,43 +108,41 @@ Be sure to view the following repositories to understand all the customizable op
 | `LOG_PATH`    | Log Path                          | `/logs/`         |
 | `LOG_FILE`    | Log file name                     | `uptimekuma.log` |
 
+## Users and Groups
+
+| Type  | Name  | ID   |
+| ----- | ----- | ---- |
+| User  | `uptimekuma` | 2323 |
+| Group | `uptimekuma` | 2323 |
 
 ### Networking
 
-| Port   | Protocol | Description                |
-| ------ | -------- | -------------------------- |
-| `80`   | TCP      | Nginx Listening Port       |
-| `3001` | WS       | Uptime Kuma Listening Port |
+| Port | Protocol | Description |
+| ---- | -------- | ----------- |
+| `80` | `tcp` | HTTP Listening Port (Nginx Proxy) |
+| `3001` | `tcp` | Uptime Kuma Listening Port |
 
+* * *
 
 ## Maintenance
+
 ### Shell Access
 
-For debugging and maintenance purposes you may want access the containers shell.
+For debugging and maintenance, `bash` and `sh` are available in the container.
 
-```bash
-docker exec -it (whatever your container name is) bash
-```
-## Support
 
-These images were built to serve a specific need in a production environment and gradually have had more functionality added based on requests from the community.
-### Usage
-- The [Discussions board](../../discussions) is a great place for working with the community on tips and tricks of using this image.
-- Consider [sponsoring me](https://github.com/sponsors/tiredofit) for personalized support.
-### Bugfixes
-- Please, submit a [Bug Report](issues/new) if something isn't working as expected. I'll do my best to issue a fix in short order.
+## Support & Maintenance
 
-### Feature Requests
-- Feel free to submit a feature request, however there is no guarantee that it will be added, or at what timeline.
-- Consider [sponsoring me](https://github.com/sponsors/tiredofit) regarding development of features.
-
-### Updates
-- Best effort to track upstream changes, More priority if I am actively using the image in a production environment.
-- Consider [sponsoring me](https://github.com/sponsors/tiredofit) for up to date releases.
-
-## License
-MIT. See [LICENSE](LICENSE) for more details.
+* For community help, tips, and community discussions, visit the Discussions board.
+* For personalized support or a support agreement, see Nfrastack Support.
+* To report bugs, submit a Bug Report. Usage questions will be closed as not-a-bug.
+* Feature requests are welcome, but not guaranteed. For prioritized development, consider a support agreement.
+* Updates are best-effort, with priority given to active production use and support agreements.
 
 ## References
 
 * <https://uptime.kuma.pet/>
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

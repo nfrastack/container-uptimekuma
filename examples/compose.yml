@@ -1,6 +1,6 @@
 services:
   uptimekuma-app:
-    image: tiredofit/uptimekuma:latest
+    image: docker.io/nfrastack/uptimekuma:latest
     container_name: uptimekuma-app
     labels:
       - traefik.enable=true
@@ -12,7 +12,6 @@ services:
       - ./logs/nginx:/www/nginx/
     environment:
       - TIMEZONE=America/Vancouver
-      - CONTAINER_NAME=uptimekuma-app
     networks:
       - proxy
       - services

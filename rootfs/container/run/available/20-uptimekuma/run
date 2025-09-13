@@ -1,8 +1,11 @@
 #!/command/with-contenv bash
+# SPDX-FileCopyrightText: © 2025 Nfrastack <code@nfrastack.com>
+#
+# SPDX-License-Identifier: MIT
 
-source /assets/functions/00-container
+source /container/base/functions/container/init
 PROCESS_NAME="uptimekuma"
-prepare_service defaults single
+prepare_service 20-uptimekuma
 
 check_container_initialized
 check_service_initialized init
@@ -18,7 +21,7 @@ case "${LOG_TYPE,,}" in
     ;;
     file )
         out="${LOG_PATH}"/"${LOG_FILE}"
-        pipe=" sleep 0.1"
+        pipe=" :"
     ;;
 esac
 
