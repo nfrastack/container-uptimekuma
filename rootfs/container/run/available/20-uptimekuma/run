@@ -13,15 +13,15 @@ check_service_initialized init
 case "${LOG_TYPE,,}" in
     both )
         out=/dev/stdout
-        pipe=" sudo -u uptimekuma tee -a ${LOG_PATH}"/"${LOG_FILE}"
+        pipe="sudo -u uptimekuma tee -a ${LOG_PATH}/${LOG_FILE}"
     ;;
     console )
         out=/dev/stdout
-        pipe=" tee"
+        pipe="cat"
     ;;
     file )
-        out="${LOG_PATH}"/"${LOG_FILE}"
-        pipe=" :"
+        out="${LOG_PATH}/${LOG_FILE}"
+        pipe="silent tee /dev/null"
     ;;
 esac
 
@@ -33,4 +33,4 @@ print_start "Starting Uptime Kuma ${UPTIMEKUMA_VERSION}"
 cd /app
 s6-setuidgid uptimekuma \
                         exec node \
-                                    server/server.js 2>&1 >> ${out} | ${pipe}
+                                    server/server.js 2>&1 >> "${out}" 2>&1 | ${pipe}
