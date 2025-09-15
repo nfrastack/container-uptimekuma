@@ -7,12 +7,12 @@ uptimekuma_bootstrap_filesystems() {
         rm -rf "/app/data/"
         ln -sf "${DATA_PATH}" /app/data/
     fi
-    create_folder "${DATA_PATH}" uptimekuma:uptimekina 755
+    create_folder "${DATA_PATH}" uptimekuma:uptimekuma 755
 
     if [ "$(stat -c %U "${DATA_PATH}")" != "uptimekuma" ] ; then chown uptimekuma:uptimekuma "${DATA_PATH}" ; fi
 
     if [ "${LOG_TYPE,,}" = "both" ] || [ "${LOG_TYPE,,}" = "file" ] ; then
-        create_folder "${LOG_PATH}" uptimekuma:uptimekina 755
+        create_folder "${LOG_PATH}" uptimekuma:uptimekuma 755
         create_logrotate uptimekuma "${LOG_PATH}"/"${LOG_FILE}" uptimekuma uptimekuma uptimekuma
     fi
 }
