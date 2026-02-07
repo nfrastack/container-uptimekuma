@@ -3,7 +3,7 @@
    ### Changed
       - Switch base image to nfrastack/nginx
       - Alpine 3.22
-      - Uptime Kuma 2.0.2
+      - Uptime Kuma 2.1.0
       - MySQL DB Support
 
 ## 1.1.99 2025-09-12 <dave at tiredofit dot ca>
