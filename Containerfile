@@ -22,7 +22,7 @@ COPY LICENSE /usr/src/container/LICENSE
 COPY README.md /usr/src/container/README.md
 
 ARG \
-    UPTIMEKUMA_VERSION="2.1.0" \
+    UPTIMEKUMA_VERSION="2.1.1" \
     UPTIMEKUMA_REPO_URL="https://github.com/louislam/uptime-kuma"
 
 ENV \
