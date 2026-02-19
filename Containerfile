@@ -22,17 +22,21 @@ COPY LICENSE /usr/src/container/LICENSE
 COPY README.md /usr/src/container/README.md
 
 ARG \
-    UPTIMEKUMA_VERSION="2.1.1" \
+    UPTIMEKUMA_VERSION="2.1.3" \
     UPTIMEKUMA_REPO_URL="https://github.com/louislam/uptime-kuma"
 
 ENV \
-    NGINX_SITE_ENABLED="uptimekuma" \
-    NGINX_ENABLE_CREATE_SAMPLE_HTML=FALSE \
-    NGINX_WORKER_PROCESSES=1 \
     IMAGE_NAME="nfrastack/uptimekuma" \
     IMAGE_REPO_URL="https://github.com/nfrastack/container-uptimekuma/"
 
 RUN echo "" && \
+    BUILD_ENV=" \
+                10-nginx/ENABLE_NGINX=FALSE \
+                10-nginx/NGINX_MODE=proxy \
+                10-nginx/NGINX_PROXY_URL='http://localhost:[env:LISTEN_PORT}' \
+                10-nginx/NGINX_SITE_ENABLED=uptimekuma \
+              " \
+              && \
     UPTIMEKUMA_BUILD_DEPS_ALPINE=" \
                                         git \
                                         npm \
@@ -78,7 +82,5 @@ RUN echo "" && \
     package cleanup && \
     rm -rf \
             /build-assets
-
-EXPOSE 3001
 
 COPY rootfs /
