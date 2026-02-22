@@ -28,12 +28,13 @@ ARG \
 ENV \
     IMAGE_NAME="nfrastack/uptimekuma" \
     IMAGE_REPO_URL="https://github.com/nfrastack/container-uptimekuma/"
+#                10-nginx/NGINX_PROXY_URL=http://localhost:[env:LISTEN_PORT] \
 
 RUN echo "" && \
     BUILD_ENV=" \
                 10-nginx/ENABLE_NGINX=FALSE \
                 10-nginx/NGINX_MODE=proxy \
-                10-nginx/NGINX_PROXY_URL='http://localhost:[env:LISTEN_PORT}' \
+                10-nginx/NGINX_PROXY_URL=http://localhost:[env:LISTEN_PORT] \
                 10-nginx/NGINX_SITE_ENABLED=uptimekuma \
               " \
               && \
@@ -69,6 +70,7 @@ RUN echo "" && \
     cp package*.json /app && \
     npm ci && \
     npm run build && \
+    npm run setup && \
     cp -R dist db server src /app/ && \
     cd /app/ && \
     npm ci --omit=dev && \
