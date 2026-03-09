@@ -22,13 +22,12 @@ COPY LICENSE /usr/src/container/LICENSE
 COPY README.md /usr/src/container/README.md
 
 ARG \
-    UPTIMEKUMA_VERSION="2.1.3" \
+    UPTIMEKUMA_VERSION="2.2.0" \
     UPTIMEKUMA_REPO_URL="https://github.com/louislam/uptime-kuma"
 
 ENV \
     IMAGE_NAME="nfrastack/uptimekuma" \
     IMAGE_REPO_URL="https://github.com/nfrastack/container-uptimekuma/"
-#                10-nginx/NGINX_PROXY_URL=http://localhost:[env:LISTEN_PORT] \
 
 RUN echo "" && \
     BUILD_ENV=" \
