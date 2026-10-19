@@ -70,7 +70,7 @@ RUN echo "" && \
     npm ci && \
     npm run build && \
     npm run setup && \
-    cp -R dist db server src /app/ && \
+    cp -R dist db extra server src /app/ && \
     cd /app/ && \
     npm ci --omit=dev && \
     chown -R uptimekuma:uptimekuma /app && \
